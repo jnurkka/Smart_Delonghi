@@ -8,15 +8,19 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import Dashboard from './app/screens/Dashboard';
 import {SafeAreaView} from 'react-native';
+import Login from './app/screens/Login';
+import styled from 'styled-components';
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <>
       <SafeAreaView style={{backgroundColor: '#239CCE', minHeight: '100%'}}>
-        <Dashboard />
+        {loggedIn ? <Dashboard /> : <Login />}
       </SafeAreaView>
     </>
   );
