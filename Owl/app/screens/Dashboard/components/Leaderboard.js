@@ -9,7 +9,7 @@ export const TileContainer = styled.View`
 
 export const Tile = styled.View`
   border-radius: 20px;
-  width: 97%;
+  width: 90%;
   background-color: #9bcfe5;
   margin-bottom: 2%;
 `;
@@ -73,9 +73,15 @@ const Leaderboard = () => {
       .map(user => (
         <UserTableItem key={users.id}>
           <Text>{user.name}</Text>
-
-          <Text>{user.score}</Text>
-          <CoffeeBean source={require('../../../images/bean.png')} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text>{user.score}</Text>
+            <CoffeeBean source={require('../../../images/bean.png')} />
+          </View>
         </UserTableItem>
       ));
   };
