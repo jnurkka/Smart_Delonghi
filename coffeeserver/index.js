@@ -34,9 +34,12 @@ const getUser = args => {
 
 const getUsers = () => [{ id: 123, name: 'jaakko', points: 2 }, { id: 111, name: 'jovan', points: 0 }];
 
+const brewIt = type => console.log(type);
+
 const root = {
   user: getUser,
   users: getUsers,
+  brew: brewIt,
 };
 
 const app = express();
