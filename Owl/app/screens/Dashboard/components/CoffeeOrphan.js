@@ -13,6 +13,7 @@ const images = {
 const OrphanCoffee = styled.TouchableOpacity`
   width: 33%;
   align-items: center;
+  justify-content: space-between;
   flex-direction: row;
 `;
 
@@ -23,33 +24,46 @@ const CoffeeImage = styled.Image`
 
 const CoffeeOrphan = () => {
   const [coffees, setCoffees] = useState([
-    {type: 'coffee_double', id: '1', timestamp: ''},
-    {type: 'coffee_single', id: '2'},
-    {type: 'espresso_single', id: '3'},
-    {type: 'espresso_double', id: '4'},
-    {type: 'espresso_single', id: '5'},
+    {type: 'coffee_double', id: '1', timestamp: '2020-02-29Z10:00:00'},
+    {type: 'coffee_single', id: '2', timestamp: '2020-02-28Z10:00:00'},
+    {type: 'espresso_single', id: '3', timestamp: '2020-03-22Z10:00:00'},
+    {type: 'espresso_double', id: '4', timestamp: '2020-02-29Z12:00:00'},
+    {type: 'espresso_single', id: '5', timestamp: '2020-02-21Z10:00:00'},
   ]);
 
-  const assignOrphanCoffee = id => {
+  const handleAssignOrphanCoffee = id => {
     console.log('id', id);
     // TODO: Send to id with user to server
   };
 
+  const getDateString = ts => {
+    const timestamp = new Date(ts);
+    return `${timestamp.getDate()}.${timestamp.getMonth()}.${timestamp.getFullYear()}, ${timestamp.getHours()}:${timestamp.getMinutes()}`;
+  };
+
   const renderOrphanCoffees = () => {
-    return coffees.map(coffee => {
-      const {type} = coffee;
-      const pathToCoffeeImage = images[type];
-      return (
-        <OrphanCoffee key={coffee.id} onPress={() => assignOrphanCoffee(type)}>
-          <CoffeeImage
-            alt={type}
-            resizeMode="contain"
-            source={pathToCoffeeImage}
-          />
-          <Text>{type}</Text>
-        </OrphanCoffee>
-      );
-    });
+    console.log('new Date().toString()', new Date().toUTCString());
+    return coffees
+      .sort((a, b) => (new Date(a.timestamp) > new Date(b.timestamp) ? -1 : 1))
+      .map(coffee => {
+        const {type, timestamp, id} = coffee;
+        const pathToCoffeeImage = images[type];
+        return (
+          <OrphanCoffee
+            key={coffee.id}
+            onPress={() => handleAssignOrphanCoffee(id)}>
+            <CoffeeImage
+              alt={type}
+              resizeMode="contain"
+              source={pathToCoffeeImage}
+            />
+            <View>
+              <Text>{type}</Text>
+              <Text>{getDateString(timestamp)}</Text>
+            </View>
+          </OrphanCoffee>
+        );
+      });
   };
   return (
     <TileContainer>
