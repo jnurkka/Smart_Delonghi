@@ -1,8 +1,8 @@
-const express = require('express');
-const expressGraphQL = require('express-graphql');
-const { buildSchema } = require('graphql');
+import express from 'express';
+import expressGraphQL from 'express-graphql';
+import { buildSchema } from 'graphql';
 
-const db = require('./db');
+import db from './db';
 
 // GraphQL schema
 const schema = buildSchema(`
@@ -20,16 +20,17 @@ const schema = buildSchema(`
     }
 `);
 
-const getCourse = function(args) {
+const getCourse = args => {
   const { id } = args;
-  return coursesData.filter(course => course.id == id)[0];
+  return [].filter(course => course.id === id)[0];
 };
-const getCourses = function(args) {
+
+const getCourses = args => {
   if (args.topic) {
     const { topic } = args;
-    return coursesData.filter(course => course.topic === topic);
+    return [].filter(course => course.topic === topic);
   }
-  return coursesData;
+  return [];
 };
 
 const root = {

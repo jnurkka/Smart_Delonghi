@@ -4,16 +4,16 @@
   "description": "Node server that provides the APIs to the coffee machine",
   "main": "index.js",
   "scripts": {
-    "dev": "yarn run nodemon",
+    "dev": "nodemon -r esm index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jnurkka",
   "license": "MIT",
   "dependencies": {
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^14.6.0",
-    "mongodb": "^3.5.4",
-    "nodemon": "^2.0.2"
+    "mongodb": "^3.5.4"
   }
 }
