@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, fet} from 'react-native';
 import styled from 'styled-components';
+import { graphql } from 'graphql';
 
 export const TileContainer = styled.View`
   flex: 1;
@@ -55,6 +56,15 @@ const UserImg = styled.Image`
   margin-right: 10px;
 `;
 
+const query = `
+    {
+      users {
+        id,
+        name,
+      }
+    }
+  `;
+
 const Leaderboard = () => {
   //   TODO: Get from Redux
   const [users, setUsers] = useState([
@@ -62,6 +72,15 @@ const Leaderboard = () => {
     {id: '2', name: 'Miri', score: 20},
     {id: '3', name: 'Julian', score: 9000},
   ]);
+
+  fetch('http://192.168.24.116:4000/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({query: query})
+  }).then(r => r.json()).then(data => console.log('data returned:', data));
 
   const renderPodium = () => {
     // Get first 3 users sorted by score
