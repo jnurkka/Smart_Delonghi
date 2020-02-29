@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import styled from 'styled-components';
 import Leaderboard from './components/Leaderboard';
-import CoffeeSelector from './components/CoffeeSelector';
+import CoffeeSelector from './components/CoffeeSelector/index.js';
 
 const Dashboard = () => {
   return (
