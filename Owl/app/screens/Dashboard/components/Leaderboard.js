@@ -2,13 +2,43 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import styled from 'styled-components';
 
-const UserTable = styled.View`
-  background-color: grey;
+export const TileContainer = styled.View`
   flex: 1;
+  align-items: center;
 `;
 
-const UserItem = styled.View`
-  border: 5px;
+export const Tile = styled.View`
+  border: 1px;
+  border-radius: 20px;
+  width: 95%;
+`;
+
+export const TileHeader = styled.Text`
+  font-weight: 700;
+  text-align: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+`;
+
+const UserTable = styled.View`
+  background-color: grey;
+  margin: 2%;
+`;
+
+const Podium = styled.View`
+  flex: 1;
+  align-items: center;
+`;
+
+const UserTableItem = styled.View`
+  border: 1px;
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+const UserTableItemText = styled.Text``;
+const UserTableHeader = styled(UserTableItemText)`
+  font-weight: 700;
 `;
 
 const Leaderboard = () => {
@@ -19,17 +49,46 @@ const Leaderboard = () => {
     {name: 'Julian', score: 9000},
   ]);
 
-  const renderUsers = () => {
-    console.log('users', users);
-    return users.map(user => (
-      <UserItem>
-        <Text>{user.name}</Text>
-        <Text>{user.score}</Text>
-      </UserItem>
-    ));
+  const renderPodium = () => {
+    // Get first 3 users sorted by score
+    const topThree = users
+      .sort((a, b) => (a.score > b.score ? -1 : 1))
+      .slice(0, 2);
+    return (
+      <Podium>
+        <View></View>
+        <View></View>
+        <View></View>
+      </Podium>
+    );
   };
 
-  return <UserTable>{renderUsers()}</UserTable>;
+  const renderUsers = () => {
+    console.log('users', users);
+    return users
+      .sort((a, b) => (a.score > b.score ? -1 : 1))
+      .map(user => (
+        <UserTableItem>
+          <Text>{user.name}</Text>
+          <Text>{user.score}</Text>
+        </UserTableItem>
+      ));
+  };
+
+  return (
+    <TileContainer>
+      <Tile>
+        <TileHeader>Coffee-Junkies @ Cliniserve</TileHeader>
+        <UserTable>
+          <UserTableItem>
+            <UserTableHeader>Name</UserTableHeader>
+            <UserTableHeader>Score</UserTableHeader>
+          </UserTableItem>
+          {renderUsers()}
+        </UserTable>
+      </Tile>
+    </TileContainer>
+  );
 };
 
 export default Leaderboard;
