@@ -1,5 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
+import styled from 'styled-components';
+
+const UserTable = styled.View`
+  background-color: black;
+  flex: 1;
+`;
+
+const UserItem = styled.View`
+  border-bottom: 5px;
+`;
 
 const Leaderboard = () => {
   //   TODO: Get from Redux
@@ -10,15 +20,16 @@ const Leaderboard = () => {
   ]);
 
   const renderUsers = () => {
+    console.log('users', users);
     users.map(user => {
-      <View>
+      <UserItem>
         <Text>{user.name}</Text>
         <Text>{user.score}</Text>
-      </View>;
+      </UserItem>;
     });
   };
 
-  return <View>{renderUsers}</View>;
+  return <UserTable>{renderUsers()}</UserTable>;
 };
 
 export default Leaderboard;
