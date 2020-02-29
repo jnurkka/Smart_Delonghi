@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, fet} from 'react-native';
 import styled from 'styled-components';
-import { graphql } from 'graphql';
 
 const images = {
   bean: require('../../../images/bean.png'),

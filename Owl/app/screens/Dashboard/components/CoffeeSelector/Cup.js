@@ -36,6 +36,15 @@ const Cup = ({ source, type }) => {
     }, 100);
   }
 
+  fetch('http://localhost:4000/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({ type: 'strong'})
+  }).then(r => r.json()).then(data => console.log('data returned:', data));
+
   const handlePressOut = () => {
     if (amount > small && amount < double) {
       setAmount(small);
