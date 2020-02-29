@@ -10,7 +10,7 @@
 
 import React from 'react';
 import Dashboard from './app/screens/Dashboard';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 const App = () => {
   return (

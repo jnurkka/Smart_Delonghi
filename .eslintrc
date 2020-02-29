@@ -1,0 +1,127 @@
+{
+  "extends": [
+    "airbnb/base",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "classes": true
+    }
+  },
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "Meteor": true,
+    "Assets": true,
+    "i18n": true,
+    "Accounts": true
+  },
+  "rules": {
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id",
+          "_hashLoginToken",
+          "_checkPassword",
+          "_generateStampedLoginToken",
+          "_hashStampedToken",
+          "_insertHashedLoginToken"
+        ]
+      }
+    ],
+    "prefer-arrow-callback": [
+      "error"
+    ],
+    "object-shorthand": [
+      "error",
+      "always"
+    ],
+    "no-unused-vars": [
+      "error"
+    ],
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true
+      }
+    ],
+    "no-shadow": [
+      "error",
+      {
+        "builtinGlobals": false,
+        "hoist": "all",
+        "allow": [
+          "resolve",
+          "reject",
+          "done",
+          "next",
+          "err",
+          "error",
+          "cb"
+        ]
+      }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "brace-style": [
+      "error",
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "class-methods-use-this": [
+      "error"
+    ],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always"
+      }
+    ],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "^meteor"
+        ]
+      }
+    ],
+    "import/extensions": [
+      "error"
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "all",
+        "singleQuote": true,
+        "printWidth": 120
+      }
+    ]
+  },
+  "plugins": [
+    "import",
+    "prettier"
+  ]
+}
