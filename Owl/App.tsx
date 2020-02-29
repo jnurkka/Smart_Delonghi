@@ -10,12 +10,12 @@
 
 import React from 'react';
 import Dashboard from './app/screens/Dashboard';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 const App = () => {
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor: '#239CCE', minHeight: '100%'}}>
         <Dashboard />
       </SafeAreaView>
     </>
