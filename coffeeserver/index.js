@@ -3,6 +3,7 @@ import expressGraphQL from 'express-graphql';
 import { buildSchema } from 'graphql';
 
 import db from './db';
+import './gpio';
 
 // GraphQL schema
 const schema = buildSchema(`
