@@ -14,19 +14,19 @@ const Touchable = styled.TouchableOpacity.attrs(({
 const CoffeeAnimation = styled.View`
   border: 6px solid #C69C6D;
   background-color: #754C24;
-  width: 50%;
+  width: 60%;
   height: ${({ height }) => height}%;
   position: absolute;
-  bottom: 50px;
+  bottom: 45px;
 `;
 
 const Cup = ({ source, type }) => {
-  const defaultAmount = 5;
+  const defaultAmount = 0;
   const [amount, setAmount] = useState(defaultAmount);
   let interval = React.useRef(null);
 
-  const small = type === 'coffee' ? 28 : 25;
-  const double = type === 'coffee' ? 46 : 45;
+  const small = type === 'coffee' ? 31 : 28;
+  const double = type === 'coffee' ? 51 : 48;
 
   const handlePressIn = () => {
     let coffeeInterval = amount;
@@ -36,14 +36,23 @@ const Cup = ({ source, type }) => {
     }, 100);
   }
 
+  fetch('http://localhost:4000/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({ type: 'strong'})
+  }).then(r => r.json()).then(data => console.log('data returned:', data));
+
   const handlePressOut = () => {
     if (amount > small && amount < double) {
       setAmount(small);
-      console.log('make a coffe');
+      console.log(`make a ${type}`);
     };
     if (amount >= double) {
       setAmount(double);
-      console.log('make a double coffe');
+      console.log(`make a double ${type}`);
     };
     if (amount < small) {
       setAmount(defaultAmount)

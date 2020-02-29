@@ -9,7 +9,7 @@ import espressoImg from '../../../../images/espresso.png';
 
 const CoffeeSelector = () => {
   return (
-    <View style={{ alignItems: 'center'}}>
+    <View style={{ alignItems: 'center', marginBottom: '1%' }}>
       <View style={{ backgroundColor: '#9bcfe5', width: '95%', borderRadius: 20, paddingVertical: 15 }}>
         <ScrollView horizontal={true} snapToAlignment="center" pagingEnabled={true} showsHorizontalScrollIndicator={false}>
           <Cup source={coffeeImg} type="coffee" />

@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, fet} from 'react-native';
 import styled from 'styled-components';
+
+const images = {
+  bean: require('../../../images/bean.png'),
+  podium: require('../../../images/podium.png'),
+};
 
 export const TileContainer = styled.View`
   flex: 1;
@@ -19,15 +24,27 @@ export const TileHeader = styled.Text`
   text-align: center;
   margin-top: 2%;
   margin-bottom: 2%;
+  font-size: 20px;
+  color: #5d4037;
+`;
+
+export const TileFont = styled.Text`
+  font-size: 17px;
+  color: #5d4037;
 `;
 
 const UserTable = styled.View`
   margin: 2%;
 `;
 
-const Podium = styled.View`
-  flex: 1;
-  align-items: center;
+const PodiumContainer = styled.View`
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const PodiumImg = styled.Image`
+  width: 70%;
+  height: 200px;
 `;
 
 const UserTableItem = styled.View`
@@ -35,15 +52,27 @@ const UserTableItem = styled.View`
   flex-direction: row;
 `;
 
-const UserTableItemText = styled.Text``;
-
-const UserTableHeader = styled(UserTableItemText)`
-  font-weight: 700;
-`;
 const CoffeeBean = styled.Image`
   width: 20px;
   height: 20px;
+  margin-left: 7px;
 `;
+
+const UserImg = styled.Image`
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+`;
+
+const query = `
+    {
+      users {
+        id,
+        name,
+      }
+    }
+  `;
 
 const Leaderboard = () => {
   //   TODO: Get from Redux
@@ -53,17 +82,24 @@ const Leaderboard = () => {
     {id: '3', name: 'Julian', score: 9000},
   ]);
 
+  fetch('http://192.168.24.116:4000/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({query: query})
+  }).then(r => r.json()).then(data => console.log('data returned:', data));
+
   const renderPodium = () => {
     // Get first 3 users sorted by score
     const topThree = users
       .sort((a, b) => (a.score > b.score ? -1 : 1))
       .slice(0, 2);
     return (
-      <Podium>
-        <View></View>
-        <View></View>
-        <View></View>
-      </Podium>
+      <PodiumContainer>
+        <PodiumImg resizeMode="contain" source={images['podium']}></PodiumImg>
+      </PodiumContainer>
     );
   };
 
@@ -72,15 +108,18 @@ const Leaderboard = () => {
       .sort((a, b) => (a.score > b.score ? -1 : 1))
       .map(user => (
         <UserTableItem key={users.id}>
-          <Text>{user.name}</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <UserImg source={images['bean']}></UserImg>
+            <TileFont>{user.name}</TileFont>
+          </View>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text>{user.score}</Text>
-            <CoffeeBean source={require('../../../images/bean.png')} />
+            <TileFont>{user.score}</TileFont>
+            <CoffeeBean source={images['bean']} />
           </View>
         </UserTableItem>
       ));
@@ -90,13 +129,8 @@ const Leaderboard = () => {
     <TileContainer>
       <Tile>
         <TileHeader>Coffee-Junkies @ Cliniserve</TileHeader>
-        <UserTable>
-          <UserTableItem>
-            <UserTableHeader>Name</UserTableHeader>
-            <UserTableHeader>Score</UserTableHeader>
-          </UserTableItem>
-          {renderUsers()}
-        </UserTable>
+        {renderPodium()}
+        <UserTable>{renderUsers()}</UserTable>
       </Tile>
     </TileContainer>
   );
