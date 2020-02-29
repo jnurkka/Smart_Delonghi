@@ -3,12 +3,12 @@ import {View, Text} from 'react-native';
 import styled from 'styled-components';
 
 const UserTable = styled.View`
-  background-color: black;
+  background-color: grey;
   flex: 1;
 `;
 
 const UserItem = styled.View`
-  border-bottom: 5px;
+  border: 5px;
 `;
 
 const Leaderboard = () => {
@@ -21,12 +21,12 @@ const Leaderboard = () => {
 
   const renderUsers = () => {
     console.log('users', users);
-    users.map(user => {
+    return users.map(user => (
       <UserItem>
         <Text>{user.name}</Text>
         <Text>{user.score}</Text>
-      </UserItem>;
-    });
+      </UserItem>
+    ));
   };
 
   return <UserTable>{renderUsers()}</UserTable>;

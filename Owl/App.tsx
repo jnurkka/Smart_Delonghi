@@ -10,11 +10,14 @@
 
 import React from 'react';
 import Dashboard from './app/screens/Dashboard';
+import {SafeAreaView} from 'react-native';
 
 const App = () => {
   return (
     <>
-      <Dashboard />
+      <SafeAreaView>
+        <Dashboard />
+      </SafeAreaView>
     </>
   );
 };
