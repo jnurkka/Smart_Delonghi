@@ -8,20 +8,21 @@ const Touchable = styled.TouchableOpacity.attrs(({
 }))`
   justify-content: flex-end;
   align-items: center;
-  width: ${Dimensions.get('window').width}px;
+  width: ${Dimensions.get('window').width * 0.95}px;
 `;
 
 const CoffeeAnimation = styled.View`
   border: 6px solid #C69C6D;
   background-color: #754C24;
-  width: 200px;
+  width: 50%;
   height: ${({ height }) => height}%;
   position: absolute;
   bottom: 50px;
 `;
 
 const Cup = ({ source, type }) => {
-  const [amount, setAmount] = useState(5);
+  const defaultAmount = 5;
+  const [amount, setAmount] = useState(defaultAmount);
   let interval = React.useRef(null);
 
   const small = type === 'coffee' ? 28 : 25;
@@ -45,21 +46,25 @@ const Cup = ({ source, type }) => {
       console.log('make a double coffe');
     };
     if (amount < small) {
-      setAmount(7)
+      setAmount(defaultAmount)
     }
     clearInterval(interval.current);
+    setTimeout(() => {
+      setAmount(defaultAmount)
+    }, 5000);
   }
 
   return (
     <Touchable onPressIn={handlePressIn} onPressOut={handlePressOut}>
       <CoffeeAnimation height={amount} />
-      <Image source={source} style={{ width: '100%', height: 280 }} resizeMode="contain" />
+      <Image source={source} style={{ width: '100%', height: 315 }} resizeMode="center" />
     </Touchable>
   )
 }
 
 Cup.propTypes = {
-
+  source: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default Cup;
