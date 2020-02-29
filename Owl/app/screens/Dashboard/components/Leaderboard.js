@@ -3,6 +3,11 @@ import {View, Text, fet} from 'react-native';
 import styled from 'styled-components';
 import { graphql } from 'graphql';
 
+const images = {
+  bean: require('../../../images/bean.png'),
+  podium: require('../../../images/podium.png'),
+};
+
 export const TileContainer = styled.View`
   flex: 1;
   align-items: center;
@@ -33,9 +38,14 @@ const UserTable = styled.View`
   margin: 2%;
 `;
 
-const Podium = styled.View`
-  flex: 1;
-  align-items: center;
+const PodiumContainer = styled.View`
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const PodiumImg = styled.Image`
+  width: 70%;
+  height: 200px;
 `;
 
 const UserTableItem = styled.View`
@@ -88,11 +98,9 @@ const Leaderboard = () => {
       .sort((a, b) => (a.score > b.score ? -1 : 1))
       .slice(0, 2);
     return (
-      <Podium>
-        <View></View>
-        <View></View>
-        <View></View>
-      </Podium>
+      <PodiumContainer>
+        <PodiumImg resizeMode="contain" source={images['podium']}></PodiumImg>
+      </PodiumContainer>
     );
   };
 
@@ -102,7 +110,7 @@ const Leaderboard = () => {
       .map(user => (
         <UserTableItem key={users.id}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <UserImg source={require('../../../images/bean.png')}></UserImg>
+            <UserImg source={images['bean']}></UserImg>
             <TileFont>{user.name}</TileFont>
           </View>
           <View
@@ -112,7 +120,7 @@ const Leaderboard = () => {
               justifyContent: 'space-between',
             }}>
             <TileFont>{user.score}</TileFont>
-            <CoffeeBean source={require('../../../images/bean.png')} />
+            <CoffeeBean source={images['bean']} />
           </View>
         </UserTableItem>
       ));
@@ -122,6 +130,7 @@ const Leaderboard = () => {
     <TileContainer>
       <Tile>
         <TileHeader>Coffee-Junkies @ Cliniserve</TileHeader>
+        {renderPodium()}
         <UserTable>{renderUsers()}</UserTable>
       </Tile>
     </TileContainer>
