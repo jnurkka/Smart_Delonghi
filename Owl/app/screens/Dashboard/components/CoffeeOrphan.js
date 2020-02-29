@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import {TileContainer, Tile, TileHeader} from './Leaderboard';
+import {TileContainer, Tile, TileHeader, TileFont} from './Leaderboard';
 import styled from 'styled-components';
 
 const images = {
@@ -20,6 +20,7 @@ const OrphanCoffee = styled.TouchableOpacity`
 const CoffeeImage = styled.Image`
   width: 50px;
   height: 50px;
+  margin-right: 10px;
 `;
 
 const CoffeeOrphan = () => {
@@ -58,8 +59,8 @@ const CoffeeOrphan = () => {
               source={pathToCoffeeImage}
             />
             <View>
-              <Text>{type}</Text>
-              <Text>{getDateString(timestamp)}</Text>
+              <TileFont>{type}</TileFont>
+              <TileFont>{getDateString(timestamp)}</TileFont>
             </View>
           </OrphanCoffee>
         );

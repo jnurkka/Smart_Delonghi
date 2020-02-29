@@ -19,6 +19,13 @@ export const TileHeader = styled.Text`
   text-align: center;
   margin-top: 2%;
   margin-bottom: 2%;
+  font-size: 20px;
+  color: #5d4037;
+`;
+
+export const TileFont = styled.Text`
+  font-size: 17px;
+  color: #5d4037;
 `;
 
 const UserTable = styled.View`
@@ -35,14 +42,17 @@ const UserTableItem = styled.View`
   flex-direction: row;
 `;
 
-const UserTableItemText = styled.Text``;
-
-const UserTableHeader = styled(UserTableItemText)`
-  font-weight: 700;
-`;
 const CoffeeBean = styled.Image`
   width: 20px;
   height: 20px;
+  margin-left: 7px;
+`;
+
+const UserImg = styled.Image`
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 `;
 
 const Leaderboard = () => {
@@ -72,14 +82,17 @@ const Leaderboard = () => {
       .sort((a, b) => (a.score > b.score ? -1 : 1))
       .map(user => (
         <UserTableItem key={users.id}>
-          <Text>{user.name}</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <UserImg source={require('../../../images/bean.png')}></UserImg>
+            <TileFont>{user.name}</TileFont>
+          </View>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text>{user.score}</Text>
+            <TileFont>{user.score}</TileFont>
             <CoffeeBean source={require('../../../images/bean.png')} />
           </View>
         </UserTableItem>
@@ -90,13 +103,7 @@ const Leaderboard = () => {
     <TileContainer>
       <Tile>
         <TileHeader>Coffee-Junkies @ Cliniserve</TileHeader>
-        <UserTable>
-          <UserTableItem>
-            <UserTableHeader>Name</UserTableHeader>
-            <UserTableHeader>Score</UserTableHeader>
-          </UserTableItem>
-          {renderUsers()}
-        </UserTable>
+        <UserTable>{renderUsers()}</UserTable>
       </Tile>
     </TileContainer>
   );
