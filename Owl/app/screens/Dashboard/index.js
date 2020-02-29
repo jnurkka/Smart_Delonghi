@@ -21,7 +21,9 @@ const Dashboard = () => {
     <ScrollView>
       <Heading>Need a kick, {getUserName()}?</Heading>
       <CoffeeSelector />
+      <VerticalSpace />
       <Leaderboard></Leaderboard>
+      <VerticalSpace />
       <CoffeeOrphan></CoffeeOrphan>
     </ScrollView>
   );

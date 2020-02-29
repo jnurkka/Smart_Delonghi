@@ -9,7 +9,7 @@ export const TileContainer = styled.View`
 
 export const Tile = styled.View`
   border-radius: 20px;
-  width: 90%;
+  width: 95%;
   background-color: #9bcfe5;
   margin-bottom: 2%;
 `;

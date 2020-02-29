@@ -3,40 +3,40 @@ import expressGraphQL from 'express-graphql';
 import { buildSchema } from 'graphql';
 
 import db from './db';
-import './gpio';
+import setupGPIO from './gpio';
 
-// GraphQL schema
 const schema = buildSchema(`
     type Query {
-        course(id: Int!): Course
-        courses(topic: String): [Course]
+      user(id: Int!): User
+      users: [User]
+      brew(type: String!): Coffee
+      stop: Coffee
+      orphans: [Coffee]
+      assignOrphan(id: Int!, userId: Int!): Coffee
     },
-    type Course {
-        id: Int
-        title: String
-        author: String
-        description: String
-        topic: String
-        url: String
+    type User {
+      id: Int
+      name: String
+      points: Int
+    },
+    type Coffee {
+      id: Int
+      type: String
+      timestamp: Int
+      userId: String
     }
 `);
 
-const getCourse = args => {
+const getUser = args => {
   const { id } = args;
-  return [].filter(course => course.id === id)[0];
+  return [].find(user => user.id === id);
 };
 
-const getCourses = args => {
-  if (args.topic) {
-    const { topic } = args;
-    return [].filter(course => course.topic === topic);
-  }
-  return [];
-};
+const getUsers = () => [{ id: 123, name: 'jaakko', points: 2 }, { id: 111, name: 'jovan', points: 0 }];
 
 const root = {
-  course: getCourse,
-  courses: getCourses,
+  user: getUser,
+  users: getUsers,
 };
 
 const app = express();
@@ -51,3 +51,5 @@ app.use(
 );
 
 app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'));
+
+setupGPIO();
