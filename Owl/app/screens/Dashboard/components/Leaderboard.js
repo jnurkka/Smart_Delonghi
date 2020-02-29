@@ -8,9 +8,9 @@ export const TileContainer = styled.View`
 `;
 
 export const Tile = styled.View`
-  border: 1px;
   border-radius: 20px;
-  width: 95%;
+  width: 97%;
+  background-color: #9bcfe5;
 `;
 
 export const TileHeader = styled.Text`
@@ -21,7 +21,6 @@ export const TileHeader = styled.Text`
 `;
 
 const UserTable = styled.View`
-  background-color: grey;
   margin: 2%;
 `;
 
