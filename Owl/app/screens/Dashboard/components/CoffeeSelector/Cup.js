@@ -23,44 +23,63 @@ const CoffeeAnimation = styled.View`
 const Cup = ({ source, type }) => {
   const defaultAmount = 0;
   const [amount, setAmount] = useState(defaultAmount);
+  const [block, setBlock] = useState(false);
   let interval = React.useRef(null);
 
   const small = type === 'coffee' ? 31 : 28;
   const double = type === 'coffee' ? 51 : 48;
 
-  const handlePressIn = () => {
-    let coffeeInterval = amount;
-    interval.current = setInterval(() => {
-      if (coffeeInterval <= double) coffeeInterval += 2;
-      setAmount(coffeeInterval)
-    }, 100);
+  const brewIt = type => {
+    const query = `
+      {
+        brew(type: "${type}", userId: 9) {
+          id
+        }
+      }
+    `;
+
+    fetch('http://localhost:4000/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ query }),
+    }).then(r => r.json()).then(data => console.log('data returned:', data));
   }
 
-  fetch('http://localhost:4000/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({ type: 'strong'})
-  }).then(r => r.json()).then(data => console.log('data returned:', data));
+  const handlePressIn = () => {
+    if (block) return;
+    let coffeeInterval = amount;
+    interval.current = setInterval(() => {
+      if (coffeeInterval <= double) coffeeInterval += 1;
+      setAmount(coffeeInterval)
+    }, 50);
+  }
 
   const handlePressOut = () => {
+    clearInterval(interval.current);
     if (amount > small && amount < double) {
+      setBlock(true);
       setAmount(small);
-      console.log(`make a ${type}`);
+      brewIt(`normal-${type}`);
+      setTimeout(() => {
+        setAmount(defaultAmount)
+        setBlock(false);
+      }, 5000);
     };
     if (amount >= double) {
+      setBlock(true);
       setAmount(double);
-      console.log(`make a double ${type}`);
+      brewIt(`double-${type}`);
+      setTimeout(() => {
+        setAmount(defaultAmount)
+        setBlock(false);
+      }, 5000);
     };
     if (amount < small) {
       setAmount(defaultAmount)
     }
-    clearInterval(interval.current);
-    setTimeout(() => {
-      setAmount(defaultAmount)
-    }, 5000);
   }
 
   return (

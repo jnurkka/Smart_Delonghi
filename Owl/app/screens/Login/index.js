@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import styled from 'styled-components';
 
 const coffee_double = require('../../images/coffee_double.png');
@@ -21,7 +21,7 @@ const GreetingImage = styled.Image`
   height: 200px;
 `;
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [userName, setUserName] = useState('');
 
   return (
@@ -30,9 +30,10 @@ const Login = () => {
       <UserNameInput
         onChangeText={setUserName}
         value={userName}
-        placeholder={'Namen eingeben'}></UserNameInput>
+        placeholder={'Namen eingeben'}/>
+      <TouchableHighlight onPress={() => setUser(userName)}>
+        <Text>Login</Text>
+      </TouchableHighlight>
     </InputFieldContainer>
   );
 };
-
-export default Login;

@@ -9,7 +9,7 @@ const schema = buildSchema(`
     type Query {
       user(id: Int!): User
       users: [User]
-      brew(type: String!): Coffee
+      brew(type: String!, userId: Int!): Coffee
       stop: Coffee
       orphans: [Coffee]
       assignOrphan(id: Int!, userId: Int!): Coffee
@@ -34,7 +34,10 @@ const getUser = args => {
 
 const getUsers = () => [{ id: 123, name: 'jaakko', points: 2 }, { id: 111, name: 'jovan', points: 0 }];
 
-const brewIt = type => console.log(type);
+const brewIt = (type, userId) => {
+  console.log(type);
+  //console.log(userId);
+};
 
 const root = {
   user: getUser,
