@@ -1,23 +1,51 @@
-var express = require('express');
-var express_graphql = require('express-graphql');
-var { buildSchema } = require('graphql');
+const express = require('express');
+const expressGraphQL = require('express-graphql');
+const { buildSchema } = require('graphql');
 
-var schema = buildSchema(`
+const db = require('./db');
+
+// GraphQL schema
+const schema = buildSchema(`
     type Query {
-        message: String
+        course(id: Int!): Course
+        courses(topic: String): [Course]
+    },
+    type Course {
+        id: Int
+        title: String
+        author: String
+        description: String
+        topic: String
+        url: String
     }
 `);
 
-var root = {
-    message: () => 'Hello World!'
+const getCourse = function(args) {
+  const { id } = args;
+  return coursesData.filter(course => course.id == id)[0];
+};
+const getCourses = function(args) {
+  if (args.topic) {
+    const { topic } = args;
+    return coursesData.filter(course => course.topic === topic);
+  }
+  return coursesData;
 };
 
-var app = express();
+const root = {
+  course: getCourse,
+  courses: getCourses,
+};
 
-app.use('/graphql', express_graphql({
-    schema: schema,
+const app = express();
+
+app.use(
+  '/graphql',
+  expressGraphQL({
+    schema,
     rootValue: root,
-    graphiql: true
-}));
+    graphiql: true,
+  }),
+);
 
 app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'));
