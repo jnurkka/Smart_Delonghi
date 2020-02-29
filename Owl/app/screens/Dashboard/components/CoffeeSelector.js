@@ -18,4 +18,4 @@ CoffeeSelector.propTypes = {
 
 }
 
-export default CoffeeSelector
+export default CoffeeSelector;

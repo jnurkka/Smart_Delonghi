@@ -25,14 +25,17 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Dashboard from 'app/screens/Dashboard';
 
-declare var global: {HermesInternal: null | {}};
+declare var global: { HermesInternal: null | {} };
 
 const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView></SafeAreaView>
+      <SafeAreaView>
+        <Dashboard />
+      </SafeAreaView>
     </>
   );
 };
