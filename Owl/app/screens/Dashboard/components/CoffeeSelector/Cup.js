@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
-import { Image, ScrollView } from 'react-native';
-
-const small = 28;
-const double = 46;
+import { Image, ScrollView, Dimensions } from 'react-native';
 
 const Touchable = styled.TouchableOpacity.attrs(({
   activeOpacity: 0.9,
 }))`
   justify-content: flex-end;
   align-items: center;
+  width: ${Dimensions.get('window').width}px;
 `;
 
 const CoffeeAnimation = styled.View`
@@ -22,9 +20,12 @@ const CoffeeAnimation = styled.View`
   bottom: 50px;
 `;
 
-const CoffeeSelector = props => {
+const Cup = ({ source, type }) => {
   const [amount, setAmount] = useState(5);
   let interval = React.useRef(null);
+
+  const small = type === 'coffee' ? 28 : 25;
+  const double = type === 'coffee' ? 46 : 45;
 
   const handlePressIn = () => {
     let coffeeInterval = amount;
@@ -50,17 +51,15 @@ const CoffeeSelector = props => {
   }
 
   return (
-    <ScrollView horizontal={true}>
-      <Touchable onPressIn={handlePressIn} onPressOut={handlePressOut}>
-        <CoffeeAnimation height={amount} />
-        <Image source={require('../../../images/coffee.png')} style={{width: '100%', height: 280 }} resizeMode="contain" />
-      </Touchable>
-    </ScrollView>
+    <Touchable onPressIn={handlePressIn} onPressOut={handlePressOut}>
+      <CoffeeAnimation height={amount} />
+      <Image source={source} style={{ width: '100%', height: 280 }} resizeMode="contain" />
+    </Touchable>
   )
 }
 
-CoffeeSelector.propTypes = {
+Cup.propTypes = {
 
 }
 
-export default CoffeeSelector;
+export default Cup;
