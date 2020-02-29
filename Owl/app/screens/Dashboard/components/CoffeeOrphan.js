@@ -12,9 +12,8 @@ const images = {
 
 const OrphanCoffee = styled.TouchableOpacity`
   width: 33%;
-  border: 1px;
-  justify-content: center;
   align-items: center;
+  flex-direction: row;
 `;
 
 const CoffeeImage = styled.Image`
@@ -24,7 +23,7 @@ const CoffeeImage = styled.Image`
 
 const CoffeeOrphan = () => {
   const [coffees, setCoffees] = useState([
-    {type: 'coffee_double', id: '1'},
+    {type: 'coffee_double', id: '1', timestamp: ''},
     {type: 'coffee_single', id: '2'},
     {type: 'espresso_single', id: '3'},
     {type: 'espresso_double', id: '4'},
@@ -45,7 +44,9 @@ const CoffeeOrphan = () => {
           <CoffeeImage
             alt={type}
             resizeMode="contain"
-            source={pathToCoffeeImage}></CoffeeImage>
+            source={pathToCoffeeImage}
+          />
+          <Text>{type}</Text>
         </OrphanCoffee>
       );
     });

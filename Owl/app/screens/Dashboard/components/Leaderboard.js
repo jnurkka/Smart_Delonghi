@@ -11,6 +11,7 @@ export const Tile = styled.View`
   border-radius: 20px;
   width: 97%;
   background-color: #9bcfe5;
+  margin-bottom: 2%;
 `;
 
 export const TileHeader = styled.Text`
@@ -30,22 +31,26 @@ const Podium = styled.View`
 `;
 
 const UserTableItem = styled.View`
-  border: 1px;
   justify-content: space-between;
   flex-direction: row;
 `;
 
 const UserTableItemText = styled.Text``;
+
 const UserTableHeader = styled(UserTableItemText)`
   font-weight: 700;
+`;
+const CoffeeBean = styled.Image`
+  width: 20px;
+  height: 20px;
 `;
 
 const Leaderboard = () => {
   //   TODO: Get from Redux
   const [users, setUsers] = useState([
-    {name: 'Jovan', score: 10},
-    {name: 'Miri', score: 20},
-    {name: 'Julian', score: 9000},
+    {id: '1', name: 'Jovan', score: 10},
+    {id: '2', name: 'Miri', score: 20},
+    {id: '3', name: 'Julian', score: 9000},
   ]);
 
   const renderPodium = () => {
@@ -63,13 +68,14 @@ const Leaderboard = () => {
   };
 
   const renderUsers = () => {
-    console.log('users', users);
     return users
       .sort((a, b) => (a.score > b.score ? -1 : 1))
       .map(user => (
-        <UserTableItem>
+        <UserTableItem key={users.id}>
           <Text>{user.name}</Text>
+
           <Text>{user.score}</Text>
+          <CoffeeBean source={require('../../../images/bean.png')} />
         </UserTableItem>
       ));
   };
